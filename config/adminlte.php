@@ -297,8 +297,8 @@ return [
                     ],
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Create category',
+                    'url'  => '/categories/create',
                 ],
             ],
         ],

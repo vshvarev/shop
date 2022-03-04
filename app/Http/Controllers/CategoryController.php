@@ -21,44 +21,58 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        $category = new Category();
+        return view('category.create', compact('category'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->id = $request->id;
+        $category->title = $request->title;
+        $category->parse_url = $request->title;
+        $category->in_main_page = $request->in_main_page;
+        $category->parent_id = $request->parent_id;
+        $category->slug = $request->slug;
+
+        $category->save();
+
+        return redirect()
+            ->route('categories.index');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('category.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -66,11 +80,22 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->id = $request->id;
+        $category->title = $request->title;
+        $category->parse_url = $request->title;
+        $category->in_main_page = $request->in_main_page;
+        $category->parent_id = $request->parent_id;
+        $category->slug = $request->slug;
+
+        $category->save();
+
+        return redirect()
+            ->route('categories.index');
     }
 
     /**
@@ -81,6 +106,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        return redirect()->route('categories.index')->withDanger('Deleted category '.$category->title);
     }
 }
