@@ -20,15 +20,23 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('product/{id}', [ProductController::class, 'show'])
-    ->name('product.show');
-
-Route::resource('categories', CategoryController::class);
-
-
 
 Auth::routes();
 
 Route::get('/admin', function() {
     return view('home');
 })->name('home')->middleware('auth');
+
+Route::prefix('admin')->group(function () {
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('categories/tree', 'App\Http\Controllers\CategoryController@tree')
+            ->name('categories.tree');
+        Route::resource('categories', CategoryController::class);
+        Route::resource('products', ProductController::class);
+    });
+});
+
+
+
+
+

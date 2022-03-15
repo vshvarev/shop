@@ -1,7 +1,7 @@
 @extends('home')
 
 @section('content_header')
-    <h1>New category</h1>
+    <h1>New product</h1>
 @endsection
 
 @section('content')
@@ -9,9 +9,9 @@
         <div class="card-header">
             <h3 class="card-title">Quick Example</h3>
         </div>
-        {{ Form::model($category, ['route' => 'categories.store']) }}
+        {{ Form::model($product, ['route' => 'products.store']) }}
             <div class="card-body">
-                @include('category.form')
+                @include('admin.product.form')
             </div>
 
             <div class="card-footer">

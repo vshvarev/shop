@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('parse_url');
-            $table->boolean('in_main_page');
-            $table->bigInteger('parent_id');
+            $table->boolean('in_main_page')->nullable();
+            $table->bigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');;
             $table->string('slug');
             $table->timestamps();
         });

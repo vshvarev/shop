@@ -18,13 +18,12 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('pic_url');
-            $table->bigInteger('count_of_votes')->unsigned();
+            $table->bigInteger('count_of_votes')->unsigned()->nullable();
             $table->string('price');
             $table->jsonb('properties')->nullable();
-            $table->string('url_in_shop');
             $table->string('slug')->unique();
             $table->bigInteger('category_id');
-            $table->boolean('in_trade');
+            $table->boolean('in_trade')->nullable();
             $table->timestamps();
         });
     }

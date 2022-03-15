@@ -14,6 +14,7 @@
             <th>Parent</th>
             <th>Slug</th>
             <th>Delete</th>
+            <th>Edit</th>
         </tr>
         @foreach($categories as $category)
             <tr>
@@ -29,7 +30,10 @@
                     {{$category->in_main_page}}
                 </td>
                 <td>
-                    {{$category->parent_id}}
+                    {{$category->category_id}}
+                    @empty($category->category_id)
+                        Null
+                    @endempty
                 </td>
                 <td>
                     {{$category->slug}}
@@ -48,10 +52,14 @@
 
                         {{ csrf_field() }}
 
-                        <button type="submit" class="btn btn-block btn-secondary">Update</button>
+                        <button type="submit" class="btn btn-block btn-secondary">Edit</button>
                     </form>
                 </td>
             </tr>
         @endforeach
     </table>
+    <form method="get" action="{{ route('categories.tree') }}">
+
+        <button type="submit" class="btn btn-outline-danger">Show categories tree</button>
+    </form>
 @endsection

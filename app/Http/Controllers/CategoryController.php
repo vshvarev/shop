@@ -15,8 +15,13 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('category.index', compact('categories'));
+        return view('admin.category.index', compact('categories'));
     }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,13 +31,13 @@ class CategoryController extends Controller
     public function create()
     {
         $category = new Category();
-        return view('category.create', compact('category'));
+        return view('admin.category.create', compact('category'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -40,10 +45,8 @@ class CategoryController extends Controller
         $category = new Category();
         $category->id = $request->id;
         $category->title = $request->title;
-        $category->parse_url = $request->title;
         $category->in_main_page = $request->in_main_page;
-        $category->parent_id = $request->parent_id;
-        $category->slug = $request->slug;
+        $category->category_id = $request->parent_id;
 
         $category->save();
 
@@ -54,32 +57,32 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
         $category = Category::findOrFail($id);
-        return view('category.show', compact('category'));
+        return view('admin.category.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('category.edit', compact('category'));
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
@@ -89,7 +92,7 @@ class CategoryController extends Controller
         $category->title = $request->title;
         $category->parse_url = $request->title;
         $category->in_main_page = $request->in_main_page;
-        $category->parent_id = $request->parent_id;
+        $category->category_id = $request->parent_id;
         $category->slug = $request->slug;
 
         $category->save();
@@ -101,7 +104,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -109,6 +112,14 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->delete();
 
-        return redirect()->route('categories.index')->withDanger('Deleted category '.$category->title);
+        return redirect()->route('categories.index')->withDanger('Deleted category ' . $category->title);
+    }
+
+    public function tree()
+    {
+        $categories = Category::whereNull('category_id')
+            ->with('childrenCategories')
+            ->get();
+        return view('admin.category.tree', compact('categories'));
     }
 }

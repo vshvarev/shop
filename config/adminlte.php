@@ -253,70 +253,35 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
         [
             'text'    => 'Categories',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
                     'text' => 'All categories',
-                    'url'  => '/categories',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'url'  => '/admin/categories',
                 ],
                 [
                     'text' => 'Create category',
-                    'url'  => '/categories/create',
+                    'url'  => '/admin/categories/create',
                 ],
             ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'product 1',
-            'icon_color' => 'red',
-            'url'        => '/product/1',
+
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text'    => 'Products',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'All products',
+                    'url'  => '/admin/products',
+                ],
+                [
+                    'text' => 'Create product',
+                    'url'  => '/admin/products/create',
+                ],
+            ],
+
         ],
     ],
 
