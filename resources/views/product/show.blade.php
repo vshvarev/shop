@@ -22,25 +22,28 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <img src="{{$product->pic_url}}" alt="Image" class="img-fluid">
+            <img src="{{ $product->pic_url }}" alt="Image" class="img-fluid">
           </div>
           <div class="col-md-6">
-            <h2 class="text-black">{{$product->title}}</h2>
-            <p>{{$product->description}}</p>
-            <p><strong class="text-primary h4">RUB {{$product->price}}</strong></p>
-            <div class="mb-5">
-              <div class="input-group mb-3" style="max-width: 120px;">
-              <div class="input-group-prepend">
-                <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-              </div>
-              <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-              <div class="input-group-append">
-                <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-              </div>
-            </div>
-
-            </div>
-            <p><a href="cart.html" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
+            <h2 class="text-black">{{ $product->title }}</h2>
+            <p>{{ $product->description }}</p>
+            <p><strong class="text-primary h4">$ {{ $product->price }}</strong></p>
+              <form action="{{ route('cart.add') }}" method="POST" class="addtocart">
+                  @csrf
+                  <div class="mb-5">
+                      <div class="input-group mb-3" style="max-width: 120px;">
+                          <div class="input-group-prepend">
+                              <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                          </div>
+                          <input type="text" class="form-control text-center" name='quantity' value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                          <div class="input-group-append">
+                              <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                          </div>
+                      </div>
+                  </div>
+                  <input type="hidden" name="product_id" value="{{ $product->id }}">
+                  <button class="buy-now btn btn-sm btn-primary" class='input-group-append' type="submit">Add To Cart</button>
+              </form>
 
           </div>
         </div>
@@ -127,6 +130,7 @@
   </div>
 
   @include('layouts.scripts')
+  <script src={{ asset("js/cart/cart.js") }}></script>
 
   </body>
 </html>

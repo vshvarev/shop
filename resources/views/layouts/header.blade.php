@@ -22,9 +22,15 @@
                             <li><a href="#"><span class="icon icon-person"></span></a></li>
                             <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
                             <li>
-                                <a href="cart.html" class="site-cart">
+                                <a href="/cart" class="site-cart">
                                     <span class="icon icon-shopping_cart"></span>
-                                    <span class="count">2</span>
+                                    <span class="count">
+                                        @if(!empty(session('cart')))
+                                            {{ session('cart_quantity') }}
+                                        @else
+                                            0
+                                        @endif
+                                    </span>
                                 </a>
                             </li>
                             <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
@@ -56,15 +62,8 @@
                 </li>
                 <li class="has-children active">
                     <a href="/about">About</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Menu One</a></li>
-                        <li><a href="#">Menu Two</a></li>
-                        <li><a href="#">Menu Three</a></li>
-                    </ul>
                 </li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="#">Catalogue</a></li>
-                <li><a href="#">New Arrivals</a></li>
+                <li><a href="/shop">Shop</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
         </div>

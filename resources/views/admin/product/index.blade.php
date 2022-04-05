@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
+    @include('admin.product.layouts.filters')
     <table class="table">
-
         <tr>
             <th>ID</th>
             <th>Name</th>

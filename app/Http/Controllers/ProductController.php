@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filters\ProductFilter;
+use App\Http\Requests\Product\FilterRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -13,10 +15,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(FilterRequest $request)
     {
-        $products = Product::all();
-        return view('admin.product.index', compact('products'));
+        $validateRequest = $request->validated();
+        $filter = app()->make(ProductFilter::class, ['queryParams' => array_filter($validateRequest)]);
+        $products = Product::filter($filter)->get();
+
+        $categories = Category::pluck('title', 'id');
+
+        return view('admin.product.index', compact('products', 'categories'));
     }
 
     /**

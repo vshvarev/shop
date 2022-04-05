@@ -28,6 +28,9 @@ return new class extends Migration
         });
     }
 
+    // 'color' => 'black'
+    // 'size' => '25'
+
     /**
      * Reverse the migrations.
      *
