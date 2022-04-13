@@ -34,6 +34,7 @@ class ProductController extends Controller
     public function create()
     {
         $product = new Product();
+
         return view('admin.product.create', compact('product'));
     }
 
@@ -68,6 +69,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
+
         return view('admin.product.show', compact('product'));
     }
 
@@ -80,6 +82,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+
         return view('admin.product.edit', compact('product'));
     }
 
@@ -119,6 +122,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->delete();
 
-        return redirect()->route('products.index')->withDanger('Deleted category ' . $product->title);
+        return redirect()
+            ->route('products.index')->withDanger('Deleted category ' . $product->title);
     }
 }

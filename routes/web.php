@@ -19,10 +19,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+// Роуты магазина
 
 Route::get('products/{slug}', [ShopController::class, 'product']);
 Route::get('shop', [ShopController::class, 'shop']);
 Route::get('/', [ShopController::class, 'index'])->name('index');
+
+// Роуты для корзины
 
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
@@ -32,12 +35,15 @@ Route::post('/cart/decrement', [CartController::class, 'decrement'])->name('cart
 Route::get('cart', [CartController::class, 'cart'])->name('cart');
 
 
+// авторизация
 
 Auth::routes();
 
 Route::get('/admin', function() {
     return view('home');
 })->name('home')->middleware('auth');
+
+// роуты для админ панели
 
 Route::prefix('admin')->group(function () {
     Route::group(['middleware' => ['role:admin']], function () {

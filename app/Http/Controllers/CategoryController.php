@@ -63,6 +63,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::findOrFail($id);
+
         return view('admin.category.show', compact('category'));
     }
 
@@ -75,6 +76,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
+
         return view('admin.category.edit', compact('category'));
     }
 
@@ -120,6 +122,7 @@ class CategoryController extends Controller
         $categories = Category::whereNull('category_id')
             ->with('childrenCategories')
             ->get();
+
         return view('admin.category.tree', compact('categories'));
     }
 }

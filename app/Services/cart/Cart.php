@@ -6,10 +6,10 @@ class Cart
 {
     public function addToCart($product, $quantity)
     {
-        if (session()->has("cart.{$product->id}")) {
-            session(["cart.{$product->id}.quantity" => session("cart.{$product->id}.quantity") + $quantity]);
+        if (session()->has("cart.$product->id")) {
+            session(["cart.$product->id.quantity" => session("cart.$product->id.quantity") + $quantity]);
         } else {
-            session(["cart.{$product->id}" => [
+            session(["cart.$product->id" => [
                 'id' => $product->id,
                 'title' => $product->title,
                 'slug' => $product->slug,
